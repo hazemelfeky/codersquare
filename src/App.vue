@@ -1,28 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Nav />
+    <div>
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Nav from './components/Nav.vue';
+// import { mapState } from 'vuex';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    Nav,
+  },
+  // computed: {
+  //   ...mapState({
+  //     user: state => state.user
+  //   })
+  // },
+  // created() {
+  //   if( localStorage.getItem('username') ) {
+  //     this.$store.dispatch('setUser', { username: localStorage.getItem('username') })
+  //   }
+  // }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;700&display=swap');
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  width: 85%;
+  margin: 0 auto;
+  font-family: 'Sofia Sans', sans-serif;
 }
 </style>
