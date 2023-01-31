@@ -91,14 +91,14 @@ export default {
     async handleSubmit() {
       axios.post('users/signup', this.form)
         .then( res => {
-          console.log(res);
           localStorage.setItem('token', res.data.token)
-          // localStorage.setItem('username', res.data.createdUser.username)
-          // this.$store.dispatch('setUser', res.data.createdUser)
+          localStorage.setItem('userId', res.data.createdUser.id)
+          this.$store.dispatch('setUserId', res.data.createdUser.id)
+          this.$store.dispatch('setToken', res.data.token)
           this.$router.push('/')
         })
         .catch( err => {
-          console.dir(err);
+          this.$store.dispatch('setSnack', { value: true, message: err.response.data.msg })
         })
     },
     handleLogout() {

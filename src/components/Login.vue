@@ -55,23 +55,20 @@ export default {
       user: state => state.user,
     })
   },
+  // aa@aa.aa 123456789aA@
   methods: {
     async handleSubmit() {
-      axios.post('users/login', this.form)
-        .then( res => {
-          console.log(res);
-          localStorage.setItem('token', res.data.token)
-          this.$store.dispatch('setToken', res.data.token)
-          this.$router.push('/')
-        })
-        .catch( err => {
-          console.dir(err);
-        })
+      try {
+        const res = await axios.post('users/login', this.form)
+        this.$store.dispatch('setToken', res.data.token)
+        this.$store.dispatch('setUserId', res.data.user.id)
+        localStorage.setItem('token', res.data.token)
+        localStorage.setItem('userId', res.data.user.id)
+        this.$router.push("/")
+      } catch (err) {
+        this.$store.dispatch('setSnack', { value: true, message: err.response.data.msg })
+      }
     },
-    handleLogout() {
-      localStorage.clear()
-      this.$store.dispatch('setUser', {})
-    }
   }
 }
 </script>

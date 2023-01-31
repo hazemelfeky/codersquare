@@ -1,7 +1,7 @@
 <template>
   <div class="posts-list">
     <Post v-for="post in posts" :key="post.id" :post="post"/>
-    <CreatePost />
+    <CreatePost :type="{ name: 'post', endpoint: 'posts', dispatch:'getPosts'}" v-if="token" />
   </div>
 </template>
 
@@ -20,12 +20,13 @@ export default {
 
   computed: {
     ...mapState({
-      posts: state => state.posts
+      posts: state => state.posts,
+      token: state => state.token,
     })
   },
 
-  async created() {
-    await this.$store.dispatch('getPosts')
+  created() {
+    this.$store.dispatch('getPosts', this.token)
   }
 }
 </script>

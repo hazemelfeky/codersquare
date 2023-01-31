@@ -2,7 +2,7 @@
   <nav>
     <router-link class="logo" to="/">
       <div class="pic">🍕</div>
-      <div class="name">Hacker News</div>
+      <div class="name">CoderSquare</div>
     </router-link>
     <!-- <div class="links">
       <a v-for="link in links" :key="link.name" class="link">{{ link.name }}</a>
@@ -12,7 +12,7 @@
         <router-link to="/signup">Sign-Up</router-link>
         <router-link to="/login">Log-In</router-link>
       </div>
-      <div v-else @click="handleLogout">
+      <div class="fake-button" v-else @click="handleLogout">
         log-Out
       </div>
     </div>
@@ -43,6 +43,7 @@ export default {
       console.log('logout');
       localStorage.clear()
       this.$store.dispatch('setToken', '')
+      this.$router.push('/login')
     }
   }
 }
@@ -78,8 +79,15 @@ nav {
 .buttons {
   margin-left: auto;
 }
+.buttons div {
+  display: flex;
+  gap: 1rem;
+}
 .buttons a{
   text-decoration: none;
   color: black;
+}
+.fake-button {
+  cursor: pointer;
 }
 </style>

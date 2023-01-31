@@ -2,12 +2,12 @@
   <div class="post">
     <v-form v-model="valid" @submit.prevent="handleSubmit">
       <v-container>
-        <h2>Create post:</h2>
+        <h2>Create comment:</h2>
         <v-row>
           <v-text-field
-            v-model="title"
+            v-model="comment"
             :rules="requiredRules"
-            label="Title"
+            label="Comment"
             required
           ></v-text-field>
         </v-row>
@@ -29,10 +29,11 @@ import axios from 'axios';
 import { mapState } from 'vuex';
 export default {
   name: "create-post",
+  props: ['postId'],
   data() {
     return {
       valid: false,
-      title: "",
+      comment: "",
       requiredRules: [
         v => !!v || 'This field is required',
       ],
@@ -46,12 +47,12 @@ export default {
   },
   methods: {
     async handleSubmit() {
-      axios.post('posts', { userId: this.userId, title: this.title })
+      axios.post('comments', { postId: this.postId, comment: this.comment })
         .then( res => {
           console.log(res);
           console.log('created successfully');
-          this.$store.dispatch('getPosts')
-          this.title = ''
+          this.$store.dispatch('getComments', this.postId)
+          this.comment = ''
         })
         .catch( err => {
           this.$store.dispatch('setSnack', { value: true, message: err.response.data })
